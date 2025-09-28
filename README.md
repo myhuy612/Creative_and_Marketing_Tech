@@ -1,139 +1,106 @@
 # Creative and Marketing Tech
 
-A web application built using **Next.js** + **TypeScript**, styled with **Tailwind CSS**, intended for creative and marketing technology solutions. This repository is part of the InnovAIte-Deakin initiative.
+A **prototype web application** built in the **AI Prototyping Lab (InnovAIte-Deakin)**.  
+It demonstrates how artificial intelligence can support marketers by generating content such as **Instagram captions, blog posts, and ad copy**.
 
 ---
 
-## Table of Contents
+## 1. Project Purpose
 
-- [Project Overview](#project-overview)  
-- [Built With](#built-with)  
-- [Features](#features)  
-- [Getting Started](#getting-started)  
-  - [Prerequisites](#prerequisites)  
-  - [Installation](#installation)  
-  - [Running Locally](#running-locally)  
-- [Configuration](#configuration)  
-- [Deployment](#deployment)  
-- [Project Structure](#project-structure)  
-- [Contributing](#contributing)  
-- [License](#license)  
+The aim of this prototype is to explore how AI can streamline marketing workflows.  
+It showcases how marketers can save time, improve creativity, and maintain brand consistency by leveraging AI tools.
 
 ---
 
-## Project Overview
+## 2. Key Features
 
-This project aims to provide tools, interfaces, or solutions that support creative industries and marketing activities, leveraging modern web technologies. It likely features modules for content management, campaign deployment, or creative asset delivery.
+- **AI Content Generation**  
+  Generate marketing copy tailored to brand tone, length, and campaign goals.  
 
-_(Add more specific purpose once your feature set is finalized.)_
+- **Frontend Prototype**  
+  Built with **Next.js**, **TypeScript**, and **Tailwind CSS** for a responsive, modern UI.  
 
----
+- **Backend Integration**  
+  Connects with AI APIs to deliver real-time content generation.  
 
-## Built With
-
-- **Next.js** (React framework) :contentReference[oaicite:0]{index=0}  
-- **TypeScript** for static typing :contentReference[oaicite:1]{index=1}  
-- **Tailwind CSS** for styling :contentReference[oaicite:2]{index=2}  
-- **Firebase** (based on a folder called `firebase`) for backend/auth/data storage :contentReference[oaicite:3]{index=3}  
-
----
-
-## Features
-
-Some features you might expect (fill in as per your implementation):
-
-- User authentication & role-based access (if using Firebase)  
-- Dashboard for managing creative/marketing content  
-- Integration with external APIs or services  
-- Responsive design for mobile and desktop  
-- Configurable settings via files (`next.config.ts`)  
+- **Customizable Inputs**  
+  Supports brand name, campaign objectives, keywords, and content types (Instagram captions, blogs, ads).  
 
 ---
 
-## Getting Started
+## 3. Tech Stack
 
+- **Frontend**: Next.js (React framework), TypeScript  
+- **Styling**: Tailwind CSS  
+- **Backend/Hosting**: Firebase setup included in repo  
+- **Other**: Google AI API integration  
 
-### Prerequisites
-Make sure you have installed:
+---
 
-- Node.js (v16 or later recommended)  
-- npm or yarn package manager  
+## 4. Getting Started
 
+### 4.1 Prerequisites
+- Node.js (v16 or later)  
+- npm (or yarn) package manager  
 
-### Installation
-1. Clone this repository:  
-   ```bash
-   git clone https://github.com/InnovAIte-Deakin/Creative_and_Marketing_Tech.git
-   cd Creative_and_Marketing_Tech
-   ```
+### 4.2 Installation
+Clone the repository and install dependencies:
 
-
-#### Install dependencies:
 ```bash
+git clone https://github.com/InnovAIte-Deakin/Creative_and_Marketing_Tech.git
+cd Creative_and_Marketing_Tech
 npm install
-or
-yarn install
 ```
 
-#### Running Locally
+## 4.3 Enivornment Variables 
+Update your .env.local file with your AI API key before running otherwise the project wont work
+Create your own Google GEMINI API and update the .env.local file 
+
 ```bash
+AI_API_KEY=your_api_key_here
+```
+## 4.4 Run Locally
+
+bash
 npm run dev
 
-or
+Visit http://localhost:3000 in your browser.
 
-yarn dev
-```
-This should start the app on http://localhost:3000 (or whatever port Next.js configures).
+## 5. Documentation
 
+SRS (Software Requirements Specification) - 
 
-### Configuration
-- next.config.ts: Next.js configuration file. 
+Design Flow Document - 
 
-- tailwind.config.ts: Tailwind CSS config. 
-
-- tsconfig.json: TypeScript configuration. 
-
-- Firebase setup: check under firebase folder for backend config and setup. 
-
-Add your own .env.local (or appropriate) file if you use environment variables (e.g. for API keys, Firebase credentials)
-
-
-### Deployment
-
-Ensure build works using
-```bash
-npm run build
-```
-
-Deploy to your chosen host
-Use apphosting.yaml (present in the repo) if you're deploying to Google App Engine or a similar environment. 
-
-
-### Project Structure
-Here’s a high-level view of the folder structure:
-
-```bash
+##6. Project Structure
 
 Creative_and_Marketing_Tech/
-├── docs/                     → Documentation files
-├── firebase/                 → Backend / Firebase setup
-├── src/                      → Source code (pages, components, etc.)
-├── next.config.ts            → Next.js configuration
-├── tailwind.config.ts        → Tailwind CSS configuration
-├── tsconfig.json             → TypeScript configuration
-├── package.json              → Scripts & dependencies
-├── apphosting.yaml           → Hosting / deployment config
-└── README.md                 → Project overview and setup (this file)
-```
+├── .git/                     → Git version control  
+├── .gitignore                → Ignored files config  
+├── .env.local                → Environment variables (API keys etc.)  
+├── README.md                 → Project overview and setup  
+├── apphosting.yaml           → Deployment config (Google App Hosting)  
+├── components.json           → UI/Components metadata  
+├── docs/                     → Documentation folder (SRS, Design Flow, etc.)  
+├── firebase/                 → Firebase backend setup & config  
+│   ├── src/                  → (Firebase-specific code if any)  
+│   └── ...  
+├── next-env.d.ts             → Next.js type definitions  
+├── next.config.ts            → Next.js configuration  
+├── node_modules/             → Installed dependencies (auto-generated)  
+├── package-lock.json         → Dependency lock file  
+├── package.json              → Dependencies & scripts  
+├── postcss.config.mjs        → PostCSS config (used by Tailwind)  
+├── public/                   → Public assets (favicons, images, etc.)  
+├── src/                      → Frontend application code  
+│   ├── ai/                   → AI flows & schemas  
+│   ├── app/                  → Next.js App Router pages & APIs  
+│   │   ├── api/              → API routes (e.g. `/api/generate`)  
+│   │   └── ...  
+│   ├── components/           → Reusable UI components & forms  
+│   ├── hooks/                → Custom React hooks  
+│   ├── lib/                  → Utility functions  
+│   └── styles/               → Global styles (if any beyond Tailwind)  
+├── tailwind.config.ts        → Tailwind CSS configuration  
+└── tsconfig.json             → TypeScript configuration
 
-### Contributing
-Feel free to contribute! Some suggested workflow:
-1. Fork the repo
-2. Create a feature branch (git checkout -b feature/your-feature)
-3. Commit your changes with clear messages
-4. Push and open a Pull Request
-5. Ensure that code is clean and tests pass (if you have tests)
-
-
-#### License
-Specify your preferred license here (e.g. MIT, Apache 2.0, etc.).
