@@ -72,8 +72,11 @@ SRS (Software Requirements Specification) -
 
 Design Flow Document - 
 
-##6. Project Structure
+## 6. Project Structure
 
+
+
+```bash
 Creative_and_Marketing_Tech/
 ├── .git/                     → Git version control  
 ├── .gitignore                → Ignored files config  
@@ -102,5 +105,5 @@ Creative_and_Marketing_Tech/
 │   ├── lib/                  → Utility functions  
 │   └── styles/               → Global styles (if any beyond Tailwind)  
 ├── tailwind.config.ts        → Tailwind CSS configuration  
-└── tsconfig.json             → TypeScript configuration
+└── tsconfig.json             → TypeScript configuration  
 
