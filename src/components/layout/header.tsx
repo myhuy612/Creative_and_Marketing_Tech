@@ -19,8 +19,14 @@ export default function Header() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90">
-            <Link href="/generate">Start Creating</Link>
+            <Link href="/generate">Create Text</Link>
           </Button>
+
+          {/* NEED TO CHANGE THE ROUTE href="generate" */}
+          <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90">
+            <Link href="/generate">Create Image</Link>
+          </Button>
+
         </div>
       </div>
     </header>
