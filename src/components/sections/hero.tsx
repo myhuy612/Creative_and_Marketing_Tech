@@ -18,7 +18,12 @@ export default function HeroSection() {
           Optimize your content for the new era of search. Our tools help your brand get discovered in AI-powered answers on ChatGPT, Perplexity, and Gemini.
         </p>
         <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-          <Link href="/generate">Start Creating</Link>
+          <Link href="/generate">Create Text</Link>
+        </Button>
+
+        {/* NEED TO CHANGE THE ROUTE href="generate" */}
+        <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
+          <Link href="/generate">Create Image</Link>
         </Button>
       </div>
     </section>
