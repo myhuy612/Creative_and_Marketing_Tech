@@ -15,7 +15,7 @@ export default function WhyAIForMarketingSection() {
 
         {/* NEED TO CHANGE THE ROUTE href="generate" */}
         <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-          <Link href="/generate">Create Image</Link>
+          <Link href="/generate/image">Create Image</Link>
         </Button>
       </div>
     </section>
