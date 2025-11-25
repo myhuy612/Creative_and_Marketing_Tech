@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Bot } from 'lucide-react';
@@ -40,7 +42,7 @@ export default function Header() {
           {/* BUTTONS */}
           <Button 
             asChild
-            style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} 
+            style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}
             className="hover:opacity-90"
           >
             <Link href="/generate">Create Text</Link>
@@ -48,7 +50,7 @@ export default function Header() {
 
           <Button 
             asChild
-            style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} 
+            style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}
             className="hover:opacity-90"
           >
             <Link href="/generate">Create Image</Link>
