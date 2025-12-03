@@ -15,11 +15,6 @@ export default function HeroSection() {
         <p className="mx-auto mb-12 max-w-2xl text-base md:text-lg">
           Use AI to create visuals, craft marketing text, and uncover audience insights instantly.
         </p>
-<<<<<<< HEAD
-        <Button size="sm" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-          <Link href="/generate">Start Creating</Link>
-        </Button>
-=======
 
         {/* BUTTONS WRAPPER */}
         <div className="mt-4 flex items-center justify-center gap-6">
@@ -52,7 +47,6 @@ export default function HeroSection() {
             <Link href="/generate/image">Create Images</Link>
           </Button>
         </div>
->>>>>>> main
       </div>
     </section>
   );
