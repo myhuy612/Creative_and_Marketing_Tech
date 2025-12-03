@@ -218,18 +218,21 @@ export default function GenerateContentForm() {
             )}
           />
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            size="lg"
-            className="w-full"
-            style={{
-              backgroundColor: "hsl(var(--accent))",
-              color: "hsl(var(--accent-foreground))",
-            }}
-          >
-            {isLoading ? "Generating..." : "Generate Content"}
-          </Button>
+      <Button
+        type="submit"
+        disabled={isLoading}
+        size="lg"
+        className="
+          w-full rounded-full py-4 text-lg font-semibold
+          bg-[hsl(var(--primary))] text-white
+          shadow-[0_8px_24px_rgba(255,115,0,0.35)]
+          transition-all duration-200
+          hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
+        "
+      >
+        {isLoading ? "Generating..." : "Generate Image"}
+      </Button>
+
         </form>
       </Form>
 
