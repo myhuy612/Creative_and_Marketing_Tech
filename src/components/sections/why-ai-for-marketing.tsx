@@ -9,14 +9,6 @@ export default function WhyAIForMarketingSection() {
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
           AI is the new search engine. If your content isn't optimized for generative answers, you're becoming invisible. Traditional SEO is not enough. We bridge that gap, ensuring your brand's voice is part of the AI-driven future of information.
         </p>
-        <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-          <Link href="/generate">Create Text</Link>
-        </Button>
-
-        {/* NEED TO CHANGE THE ROUTE href="generate" */}
-        <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-          <Link href="/generate">Create Image</Link>
-        </Button>
       </div>
     </section>
   );

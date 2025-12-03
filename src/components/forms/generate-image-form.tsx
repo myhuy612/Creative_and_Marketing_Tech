@@ -230,7 +230,7 @@ export default function GenerateContentForm() {
           hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
         "
       >
-        {isLoading ? "Generating..." : "Generate Text"}
+        {isLoading ? "Generating..." : "Generate Image"}
       </Button>
 
         </form>
@@ -242,7 +242,7 @@ export default function GenerateContentForm() {
         <div className="mt-12 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Generated Content</CardTitle>
+              <CardTitle>Generated Image Content</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="whitespace-pre-wrap">
