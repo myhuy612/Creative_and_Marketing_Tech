@@ -1,26 +1,89 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Bot } from 'lucide-react';
+"use client";
+
+import Link from "next/link";
+import { Sparkles, MoreVertical } from "lucide-react";
+import { useState, useRef } from "react";
 
 export default function Header() {
+  const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const hideTimeoutRef = useRef<number | null>(null);
+
+  const handleMouseEnter = () => {
+    // Cancel any scheduled hide
+    if (hideTimeoutRef.current !== null) {
+      window.clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    // Hide after 3 seconds
+    hideTimeoutRef.current = window.setTimeout(() => {
+      setIsOpen(false);
+      hideTimeoutRef.current = null;
+    }, 3000); // 3000ms = 3 seconds for the dropdown options to show after hovering
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="mr-4 flex items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Bot className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline">AI for Marketing</span>
+      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
+        {/* LEFT SIDE — Logo only */}
+        <div className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-tr from-orange-600 via-orange-500 to-amber-400 text-white shadow-md">
+              <Sparkles className="h-5 w-5" />
+            </div>
+
+            <span className="text-2xl font-semibold tracking-tight text-[#1a1a1a]">
+              MarketGen AI
+            </span>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            <Link href="/#what-we-do" className="transition-colors hover:text-foreground/80 text-foreground/60">What We Do</Link>
-            <Link href="/#use-case" className="transition-colors hover:text-foreground/80 text-foreground/60">Use Case</Link>
-            <Link href="/#why-us" className="transition-colors hover:text-foreground/80 text-foreground/60">Why Us</Link>
-          </nav>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90">
-            <Link href="/generate">Start Creating</Link>
-          </Button>
+
+        {/* RIGHT SIDE — Generate menu + Search */}
+        <div className="flex items-center space-x-4">
+          {/* 3-dots dropdown (hover + 6s delay hide) */}
+          <div
+            className="relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button className="inline-flex items-center justify-center rounded-full bg-white p-2 text-sm font-semibold text-gray-900 shadow-xs border border-gray-300 hover:bg-gray-100">
+              <MoreVertical className="h-5 w-5 text-gray-500" />
+            </button>
+
+            {isOpen && (
+              <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg border border-black/5 z-50">
+                <div className="py-1">
+                  <Link
+                    href="/generate"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Text Generator
+                  </Link>
+                  <Link
+                    href="/generate/image"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Image Generator
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* SEARCH INPUT */}
+          <div className="relative hidden md:block">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search…"
+              className="w-48 rounded-full border border-gray-300 px-4 py-1.5 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
         </div>
       </div>
     </header>
