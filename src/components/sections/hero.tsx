@@ -1,44 +1,52 @@
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 bg-background">
-      <div aria-hidden="true" className="absolute inset-0 top-0 z-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-50 animate-blob"></div>
-        <div
-          className="absolute top-1/2 right-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-50 animate-blob"
-          style={{ animationDelay: '2s' }}
-        ></div>
-      </div>
-
-      <div className="container mx-auto px-4 text-center relative z-10">
-
-        <h1 className="text-4xl md:text-6xl font-bold font-headline leading-tight tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/80">
-          Create smarter. Market faster.
+    <section className="relative py-20 md:py-32 bg-gradient-to-b from-[#fff7ef] via-[#ffe9d4] to-[#ffd9b3]">
+      <div className="container mx-auto px-4 text-center">
+        {/* TITLE */}
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-8">
+          <span className="text-[#111]">Create smarter.</span>{" "}
+          <span className="text-[hsl(var(--primary))]">Market faster.</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
-          Use AI to create visuals, craft marketing text, and uncover audience insights instantly, helping you move faster and keep every campaign consistent and on point.
+        {/* SLOGAN */}
+        <p className="mx-auto mb-12 max-w-2xl text-base md:text-lg">
+          Use AI to create visuals, craft marketing text, and uncover audience insights instantly.
         </p>
 
-        {/* BUTTON GROUP */}
-        <div className="flex items-center justify-center gap-6 mt-6">
+        {/* BUTTONS WRAPPER */}
+        <div className="mt-4 flex items-center justify-center gap-6">
+
+          {/* TEXT BUTTON */}
           <Button
-            size="lg"
             asChild
-            className="px-10 py-7 text-lg hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 hover:scale-105"
-            style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}
+            className="
+              rounded-full px-10 py-4 text-lg font-semibold
+              bg-[hsl(var(--primary))] text-white
+              shadow-[0_8px_24px_rgba(255,115,0,0.35)]
+              transition-all duration-200
+              hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
+            "
           >
             <Link href="/generate">Create Text</Link>
           </Button>
 
-
-          <Button size="lg" asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }} className="hover:opacity-90 shadow-lg shadow-accent/20 transition-all duration-300 transform hover:scale-105">
-            <Link href="/generate/image">Create Image</Link>
+          {/* IMAGE BUTTON */}
+          <Button
+            asChild
+            className="
+              rounded-full px-10 py-4 text-lg font-semibold
+              bg-white/80 text-orange-600 border border-orange-300
+              transition-all duration-200
+              hover:-translate-y-0.5 hover:bg-white hover:border-orange-400
+              hover:shadow-[0_12px_28px_rgba(255,115,0,0.25)]
+            "
+          >
+            <Link href="/generate">Create Images</Link>
           </Button>
         </div>
-
       </div>
     </section>
   );
