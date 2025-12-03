@@ -14,7 +14,7 @@ export default function UseCasePreview() {
           <Card className="bg-transparent border-none shadow-none">
             <CardContent className="p-4 flex items-start gap-4">
               <Avatar>
-                <AvatarImage src="https://placehold.co/40x40" alt="User" data-ai-hint="person avatar" />
+                <AvatarImage src="https://www.w3schools.com/w3images/avatar5.png" alt="User" data-ai-hint="person avatar" />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <div className="flex-1">

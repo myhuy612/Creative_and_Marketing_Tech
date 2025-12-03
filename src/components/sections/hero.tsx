@@ -44,7 +44,7 @@ export default function HeroSection() {
               hover:shadow-[0_12px_28px_rgba(255,115,0,0.25)]
             "
           >
-            <Link href="/generate">Create Images</Link>
+            <Link href="/generate/image">Create Images</Link>
           </Button>
         </div>
       </div>
