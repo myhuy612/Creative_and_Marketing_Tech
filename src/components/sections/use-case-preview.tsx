@@ -4,6 +4,7 @@ import { Bot } from 'lucide-react';
 
 export default function UseCasePreview() {
   return (
+
     <section id="use-case" className="py-20 md:py-14 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
@@ -18,7 +19,7 @@ export default function UseCasePreview() {
           {/* ROW 1 — PROMPTS */}
           <div className="grid gap-10 md:grid-cols-2">
             {/* TEXT PROMPT */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <Card className="bg-transparent border-none shadow-none">
                 <CardContent className="p-4 flex items-start gap-4">
                   <Avatar>
@@ -34,16 +35,16 @@ export default function UseCasePreview() {
                       "What are the best running shoes for marathon training in 2024?"
                     </p>
                   </div>
+
                 </CardContent>
               </Card>
-
-              <div className="w-full flex justify-center">
+              <div className="w-full flex justify-center my-1">
                 <div className="w-24 h-px bg-border/50" />
               </div>
             </div>
 
             {/* IMAGE PROMPT */}
-            <div className="space-y-4">
+            <div className="space-y-1">
               <Card className="bg-transparent border-none shadow-none">
                 <CardContent className="p-4 flex items-start gap-4">
                   <Avatar>
@@ -56,8 +57,8 @@ export default function UseCasePreview() {
                   <div className="flex-1">
                     <p className="font-semibold">User Image Prompt:</p>
                     <p className="text-muted-foreground">
-                      "Create a lifestyle image of a runner wearing the AeroStride shoe at sunrise, with warm
-                      cinematic lighting and subtle brand colours."
+                      "Create a brand image of the AeroStride shoe in white with 
+                      aqua and orange colours."
                     </p>
                   </div>
                 </CardContent>
@@ -100,10 +101,9 @@ export default function UseCasePreview() {
                   <p className="text-muted-foreground mb-3">
                     A campaign-ready hero image you can drop straight into ads, landing pages, or social posts.
                   </p>
-
-                  <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/60">
+                    <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/60">
                     <img
-                      src="https://images.pexels.com/photos/1401796/pexels-photo-1401796.jpeg"
+                      src="https://thumbs.dreamstime.com/b/stylish-running-shoe-vibrant-splash-orange-against-cool-blue-background-generative-ai-contemporary-designed-sleek-357962081.jpg"
                       alt="AI generated running shoe lifestyle visual"
                       className="h-full w-full object-cover"
                     />
