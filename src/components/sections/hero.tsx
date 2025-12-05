@@ -16,7 +16,7 @@ export default function HeroSection() {
           Use AI to create visuals, craft marketing text, and uncover audience insights instantly.
         </p>
 
-        {/* BUTTONS WRAPPER */}
+        {/* BUTTONS */}
         <div className="mt-4 flex items-center justify-center gap-6">
 
           {/* TEXT BUTTON */}
@@ -30,7 +30,7 @@ export default function HeroSection() {
               hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
             "
           >
-            <Link href="/generate">Create Text</Link>
+            <Link href="/generate">Generate Text</Link>
           </Button>
 
           {/* IMAGE BUTTON */}
@@ -44,7 +44,7 @@ export default function HeroSection() {
               hover:shadow-[0_12px_28px_rgba(255,115,0,0.25)]
             "
           >
-            <Link href="/generate/image">Create Images</Link>
+            <Link href="/generate/image">Generate Images</Link>
           </Button>
         </div>
       </div>
