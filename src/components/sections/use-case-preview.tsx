@@ -29,7 +29,7 @@ export default function UseCasePreview() {
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <p className="font-semibold">User Prompt:</p>
+                    <p className="font-semibold">User Text Prompt:</p>
                     <p className="text-muted-foreground">
                       "What are the best running shoes for marathon training in 2024?"
                     </p>
@@ -54,7 +54,7 @@ export default function UseCasePreview() {
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <p className="font-semibold">Image Prompt:</p>
+                    <p className="font-semibold">User Image Prompt:</p>
                     <p className="text-muted-foreground">
                       "Create a lifestyle image of a runner wearing the AeroStride shoe at sunrise, with warm
                       cinematic lighting and subtle brand colours."
