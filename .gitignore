@@ -19,6 +19,8 @@
 # next.js
 /.next/
 /out/
+keys/vertex-sa.json
+
 
 # production
 /build
