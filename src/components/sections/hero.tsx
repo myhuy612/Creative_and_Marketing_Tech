@@ -12,7 +12,7 @@ export default function HeroSection() {
         </h1>
 
         {/* SLOGAN */}
-        <p className="mx-auto mb-12 max-w-2xl text-base md:text-lg">
+        <p className="mx-auto mb-16 max-w-3xl text-lg md:text-xl leading-relaxed">
           Use AI to create visuals, craft marketing text, and uncover audience insights instantly.
         </p>
 
@@ -23,7 +23,7 @@ export default function HeroSection() {
           <Button
             asChild
             className="
-              rounded-full px-10 py-4 text-lg font-semibold
+              rounded-full px-12 py-5 text-xl font-semibold min-h-[60px]
               bg-[hsl(var(--primary))] text-white
               shadow-[0_8px_24px_rgba(255,115,0,0.35)]
               transition-all duration-200
@@ -37,7 +37,7 @@ export default function HeroSection() {
           <Button
             asChild
             className="
-              rounded-full px-10 py-4 text-lg font-semibold
+              rounded-full px-12 py-5 text-xl font-semibold min-h-[60px]
               bg-white/80 text-orange-600 border border-orange-300
               transition-all duration-200
               hover:-translate-y-0.5 hover:bg-white hover:border-orange-400
@@ -45,6 +45,19 @@ export default function HeroSection() {
             "
           >
             <Link href="/generate/image">Generate Images</Link>
+          </Button>
+
+          <Button
+            asChild
+            className="
+              rounded-full px-12 py-5 text-xl font-semibold min-h-[60px]
+              bg-[hsl(var(--primary))] text-white
+              shadow-[0_8px_24px_rgba(255,115,0,0.35)]
+              transition-all duration-200
+              hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
+            "
+          >
+            <Link href="/generate/profile">Generate Target Audience Profile</Link>
           </Button>
         </div>
       </div>
