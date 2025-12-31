@@ -2,15 +2,29 @@
 
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type {
   GeneratePersonaRequest,
   GeneratePersonaResponse,
   Persona,
   TargetAudience,
 } from "@/types/persona";
+import type { ListPresetsResponse, PersonaPreset } from "@/types/personaPreset";
 
 type Mode = "targetAudienceJson" | "manual";
+
+const LS_LAST_PRESET_ID = "persona:lastPresetId";
+
+// Keep your original default JSON template so "Reset" doesn't break your current UX
+const DEFAULT_TA_JSON = `{
+  "summary": "Young professionals who value convenience and quality",
+  "ageRange": { "min": 25, "max": 35 },
+  "incomeLevel": "Mid to upper-mid",
+  "demographics": "Urban, time-poor, research-driven buyers",
+  "interests": ["tech", "fitness", "travel"],
+  "preferredChannels": ["Instagram", "TikTok", "YouTube"]
+}`;
 
 function splitLinesToList(s: string): string[] {
   return s
@@ -18,6 +32,19 @@ function splitLinesToList(s: string): string[] {
     .map((x) => x.trim())
     .filter(Boolean)
     .slice(0, 20);
+}
+
+function listToMultiline(list?: string[]): string {
+  if (!list?.length) return "";
+  return list.join("\n");
+}
+
+function safeJsonStringify(obj: any): string {
+  try {
+    return JSON.stringify(obj, null, 2);
+  } catch {
+    return "";
+  }
 }
 
 function Chip({ children }: { children: React.ReactNode }) {
@@ -134,6 +161,17 @@ function PersonaView({ persona }: { persona: Persona }) {
 }
 
 export default function PersonaGeneratorPage() {
+  const searchParams = useSearchParams();
+
+  // -------- Presets (NEW) --------
+  const [presets, setPresets] = useState<PersonaPreset[]>([]);
+  const [presetError, setPresetError] = useState<string | null>(null);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>("");
+
+  // avoid overriding user edits repeatedly
+  const didInitialAutoApplyRef = useRef(false);
+
+  // -------- Existing state (KEEP) --------
   const [mode, setMode] = useState<Mode>("targetAudienceJson");
 
   // context
@@ -143,16 +181,7 @@ export default function PersonaGeneratorPage() {
   const [tone, setTone] = useState("");
 
   // TargetAudience JSON input
-  const [targetAudienceJson, setTargetAudienceJson] = useState<string>(
-    `{
-  "summary": "Young professionals who value convenience and quality",
-  "ageRange": { "min": 25, "max": 35 },
-  "incomeLevel": "Mid to upper-mid",
-  "demographics": "Urban, time-poor, research-driven buyers",
-  "interests": ["tech", "fitness", "travel"],
-  "preferredChannels": ["Instagram", "TikTok", "YouTube"]
-}`
-  );
+  const [targetAudienceJson, setTargetAudienceJson] = useState<string>(DEFAULT_TA_JSON);
 
   // manual input
   const [audienceSummary, setAudienceSummary] = useState("");
@@ -176,6 +205,185 @@ export default function PersonaGeneratorPage() {
     return ctx;
   }, [brandName, productName, category, tone]);
 
+  const selectedPreset = useMemo(
+    () => presets.find((p) => p.id === selectedPresetId) || null,
+    [presets, selectedPresetId]
+  );
+
+  function applyPreset(p: PersonaPreset) {
+    // Do NOT clear result automatically; user may want to compare; but keep errors clean
+    setError(null);
+
+    // Mode & number
+    setMode(p.mode);
+    if (p.payload.numPersonas) setNumPersonas(p.payload.numPersonas);
+
+    // Context mapping (preserve existing UX: these are editable)
+    const ctx = p.payload.context ?? {};
+    setBrandName(ctx.brandName ?? "");
+    setProductName(ctx.productName ?? "");
+    setCategory(ctx.category ?? "");
+    setTone(ctx.tone ?? "");
+
+    // Data mapping
+    if (p.mode === "targetAudienceJson") {
+      const ta = p.payload.targetAudience ?? { summary: "" };
+      setTargetAudienceJson(safeJsonStringify(ta));
+
+      // clear manual fields to avoid confusion
+      setAudienceSummary("");
+      setGoals("");
+      setPains("");
+      setMotivations("");
+      setChannels("");
+    } else {
+      const m = p.payload.manualTargetInfo ?? {};
+      setAudienceSummary(m.audienceSummary ?? "");
+      setGoals(listToMultiline(m.goals));
+      setPains(listToMultiline(m.pains));
+      setMotivations(listToMultiline(m.motivations));
+      setChannels(listToMultiline(m.preferredChannels));
+
+      // clear TA JSON to avoid confusion (keeps validation sane)
+      setTargetAudienceJson("");
+    }
+
+    // persist last used preset id
+    try {
+      localStorage.setItem(LS_LAST_PRESET_ID, p.id);
+    } catch {
+      // ignore
+    }
+  }
+
+  function resetAll() {
+    // Keep behavior safe: reset inputs without breaking existing logic
+    setError(null);
+    setResult(null);
+
+    setMode("targetAudienceJson");
+
+    setBrandName("");
+    setProductName("");
+    setCategory("");
+    setTone("");
+
+    setTargetAudienceJson(DEFAULT_TA_JSON);
+
+    setAudienceSummary("");
+    setGoals("");
+    setPains("");
+    setMotivations("");
+    setChannels("");
+
+    setNumPersonas(1);
+  }
+
+  function applyTargetAudienceFromSessionKey(taKey: string) {
+    // Future integration path (Target Audience page -> persona page):
+    // sessionStorage.setItem(`ta:${taKey}`, JSON.stringify(targetAudienceObj))
+    try {
+      const raw = sessionStorage.getItem(`ta:${taKey}`);
+      if (!raw) return false;
+
+      const obj = JSON.parse(raw) as TargetAudience;
+      if (!obj?.summary || typeof obj.summary !== "string") return false;
+
+      setMode("targetAudienceJson");
+      setTargetAudienceJson(safeJsonStringify(obj));
+
+      // clear manual fields
+      setAudienceSummary("");
+      setGoals("");
+      setPains("");
+      setMotivations("");
+      setChannels("");
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // -------- Presets fetch (NEW) --------
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPresets() {
+      setPresetError(null);
+      try {
+        const res = await fetch("/api/presets/persona", { method: "GET" });
+        const data = (await res.json()) as ListPresetsResponse;
+
+        if (!res.ok) {
+          throw new Error((data as any)?.message || "Failed to load persona presets.");
+        }
+        if (!data?.presets || !Array.isArray(data.presets)) {
+          throw new Error("Invalid presets response.");
+        }
+
+        if (!cancelled) {
+          setPresets(data.presets);
+        }
+      } catch (e: any) {
+        if (!cancelled) setPresetError(e?.message || "Failed to load persona presets.");
+      }
+    }
+
+    loadPresets();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // -------- Initial auto apply (NEW) --------
+  useEffect(() => {
+    if (didInitialAutoApplyRef.current) return;
+
+    // Always allow taKey without requiring presets loaded
+    const taKey = searchParams.get("taKey")?.trim();
+    if (taKey) {
+      const ok = applyTargetAudienceFromSessionKey(taKey);
+      if (ok) {
+        didInitialAutoApplyRef.current = true;
+        return;
+      }
+    }
+
+    if (!presets.length) return;
+
+    // priority: presetId in URL
+    const presetIdFromUrl = searchParams.get("presetId")?.trim();
+    if (presetIdFromUrl && presets.some((p) => p.id === presetIdFromUrl)) {
+      setSelectedPresetId(presetIdFromUrl);
+      applyPreset(presets.find((p) => p.id === presetIdFromUrl)!);
+      didInitialAutoApplyRef.current = true;
+      return;
+    }
+
+    // then last used preset
+    let last = "";
+    try {
+      last = localStorage.getItem(LS_LAST_PRESET_ID) || "";
+    } catch {
+      last = "";
+    }
+    if (last && presets.some((p) => p.id === last)) {
+      setSelectedPresetId(last);
+      applyPreset(presets.find((p) => p.id === last)!);
+      didInitialAutoApplyRef.current = true;
+      return;
+    }
+
+    // else do nothing (keep your current default UX)
+    // You can optionally auto-select first preset if you want:
+    // const first = presets[0];
+    // setSelectedPresetId(first.id);
+    // applyPreset(first);
+
+    didInitialAutoApplyRef.current = true;
+  }, [presets, searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+
   function validate(): string | null {
     if (![1, 2, 3].includes(numPersonas)) return "numPersonas must be 1, 2, or 3.";
 
@@ -195,7 +403,8 @@ export default function PersonaGeneratorPage() {
         pains.trim() ||
         motivations.trim() ||
         channels.trim();
-      if (!anyManual) return "Manual mode: please fill at least one target field (e.g., audience summary).";
+      if (!anyManual)
+        return "Manual mode: please fill at least one target field (e.g., audience summary).";
     }
     return null;
   }
@@ -254,12 +463,92 @@ export default function PersonaGeneratorPage() {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <h1 className="text-2xl font-semibold">Persona Generator (Stage 0)</h1>
       <p className="mt-2 text-sm text-gray-600">
-        Generate personas from TargetAudience JSON or manual target inputs. The UI shows normal cards, while structured JSON is kept for future DB/links.
+        Generate personas from TargetAudience JSON or manual target inputs. The UI shows normal cards, while
+        structured JSON is kept for future DB/links.
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left: Form */}
         <div className="rounded-2xl border p-4 shadow-sm">
+          {/* -------- Presets UI (NEW, non-breaking) -------- */}
+          <div className="mb-4 space-y-2 rounded-xl border bg-gray-50 p-3">
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold">Persona presets</div>
+              <button
+                type="button"
+                onClick={resetAll}
+                className="rounded-lg border bg-white px-3 py-1 text-xs hover:bg-gray-100"
+              >
+                Reset
+              </button>
+            </div>
+
+            {presetError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                {presetError}
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2 md:flex-row md:items-center">
+              <select
+                className="w-full rounded-lg border bg-white px-3 py-2 text-sm md:flex-1"
+                value={selectedPresetId}
+                onChange={(e) => {
+                  const id = e.target.value;
+                  setSelectedPresetId(id);
+                  const p = presets.find((x) => x.id === id);
+                  if (p) applyPreset(p);
+                }}
+                disabled={!presets.length}
+              >
+                {!presets.length ? (
+                  <option value="">Loading presets...</option>
+                ) : (
+                  <>
+                    <option value="">— Select a preset —</option>
+                    {presets.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+
+              <button
+                type="button"
+                className="rounded-lg border bg-white px-3 py-2 text-sm hover:bg-gray-100"
+                onClick={() => {
+                  if (selectedPreset) applyPreset(selectedPreset);
+                }}
+                disabled={!selectedPreset}
+                title="Re-apply preset to overwrite current inputs"
+              >
+                Apply
+              </button>
+            </div>
+
+            {selectedPreset && (
+              <div className="text-xs text-gray-700">
+                <div className="font-medium">{selectedPreset.description}</div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <Chip>mode: {selectedPreset.mode}</Chip>
+                  {typeof selectedPreset.payload.numPersonas === "number" && (
+                    <Chip># personas: {selectedPreset.payload.numPersonas}</Chip>
+                  )}
+                  {selectedPreset.tags?.map((t) => (
+                    <Chip key={t}>{t}</Chip>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-gray-500">
+                  Tip: open with <code>?presetId=...</code> to auto-apply. For Target Audience linking use{" "}
+                  <code>?taKey=...</code> (reads from sessionStorage).
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* -------- Existing form (KEEP) -------- */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               <div>
@@ -448,9 +737,7 @@ export default function PersonaGeneratorPage() {
               {/* Debug JSON (kept for DB / integration needs) */}
               <details className="rounded-xl border bg-gray-50 p-3">
                 <summary className="cursor-pointer text-sm font-medium">Show JSON (debug)</summary>
-                <pre className="mt-2 max-h-80 overflow-auto text-xs">
-                  {JSON.stringify(result, null, 2)}
-                </pre>
+                <pre className="mt-2 max-h-80 overflow-auto text-xs">{JSON.stringify(result, null, 2)}</pre>
               </details>
             </div>
           )}
