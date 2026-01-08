@@ -1,22 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Search, TrendingUp, Link as LinkIcon } from 'lucide-react';
+import { ImagePlus, Pencil,  } from 'lucide-react';
+
 
 const features = [
   {
-    icon: <Search className="h-8 w-8 text-accent" />,
-    title: 'AI Search Visibility',
-    description: 'Leverage our generative AI tool to audit your marketing content and get suggestions for better visibility in AI search results on platforms like ChatGPT, Perplexity, and Gemini.',
+    icon: <ImagePlus className="h-8 w-8 text-accent" />,
+    title: 'AI Image Generation',
+    description: 'Create high-quality, on-brand visuals tailored to your marketing needs. From social posts to product showcases, generate images that elevate your brand presence instantly.',
   },
   {
-    icon: <TrendingUp className="h-8 w-8 text-accent" />,
-    title: 'Trending Query Analysis',
-    description: "Our AI-powered analysis tool identifies trending queries relevant to your industry, helping you optimize for what your audience is asking AI right now.",
+    icon: <Pencil className="h-8 w-8 text-accent" />,
+    title: 'AI Text Generation',
+    description: "Craft compelling marketing copy effortlessly. Produce captions, taglines, product descriptions and campaign messages optimized for clarity, tone, and audience engagement.",
   },
-  {
-    icon: <LinkIcon className="h-8 w-8 text-accent" />,
-    title: 'Citation Optimization',
-    description: "Get smart suggestions for internal and external links to enhance your content's authority. Our tool helps you find and generate suitable citation opportunities.",
-  },
+ 
 ];
 
 export default function WhatWeDoSection() {
@@ -25,9 +22,9 @@ export default function WhatWeDoSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-headline">What We Do</h2>
-          <p className="text-lg text-muted-foreground mt-2">We equip your brand for the future of search.</p>
+          <p className="text-lg text-muted-foreground mt-2"> Transform your brand's ideas into polished text and visuals with AI.</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {features.map((feature) => (
             <Card key={feature.title} className="bg-card border-border/50 hover:border-primary/50 transition-all transform hover:-translate-y-2 duration-300">
               <CardHeader className="flex flex-col items-center text-center">

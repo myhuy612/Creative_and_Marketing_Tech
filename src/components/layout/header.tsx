@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
+<<<<<<< HEAD
 import { Sparkles, MoreVertical } from "lucide-react";
+=======
+import { Sparkles, Menu } from "lucide-react";
+>>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
 import { useState, useRef } from "react";
 
 export default function Header() {
@@ -44,14 +48,33 @@ export default function Header() {
 
         {/* RIGHT SIDE — Generate menu + Search */}
         <div className="flex items-center space-x-4">
+<<<<<<< HEAD
           {/* 3-dots dropdown (hover + 6s delay hide) */}
+=======
+          {/* SEARCH INPUT */}
+          <div className="relative hidden md:block">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search…"
+              className="w-48 rounded-full border border-gray-300 px-4 py-1.5 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* 3-lines dropdown (hover + 6s delay hide) */}
+>>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
           <div
             className="relative"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             <button className="inline-flex items-center justify-center rounded-full bg-white p-2 text-sm font-semibold text-gray-900 shadow-xs border border-gray-300 hover:bg-gray-100">
+<<<<<<< HEAD
               <MoreVertical className="h-5 w-5 text-gray-500" />
+=======
+              <Menu className="h-6 w-6 text-gray-500" />
+>>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
             </button>
 
             {isOpen && (
@@ -74,6 +97,7 @@ export default function Header() {
             )}
           </div>
 
+<<<<<<< HEAD
           {/* SEARCH INPUT */}
           <div className="relative hidden md:block">
             <input
@@ -84,6 +108,8 @@ export default function Header() {
               className="w-48 rounded-full border border-gray-300 px-4 py-1.5 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
+=======
+>>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
         </div>
       </div>
     </header>
