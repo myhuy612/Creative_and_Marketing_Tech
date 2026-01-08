@@ -1,6 +1,38 @@
 // app/product-target-audience/page.tsx
 "use client";
 
+/////
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
+
+// export default function GeneratePage() {
+//   return (
+//     <div className="flex flex-col min-h-dvh bg-gradient-to-b from-[#fff7ef] via-[#ffe9d4] to-[#ffd9b3] text-foreground">
+//       <Header />
+
+//       <main className="flex-grow container mx-auto px-4 py-8 md:py-12">
+//         <div className="max-w-3xl mx-auto">
+//           <div className="text-center mb-12">
+//             <h1 className="text-4xl md:text-5xl font-bold font-headline leading-tight tracking-tighter">
+//               Generate Brand Content 💬
+//             </h1>
+//             <p className="text-lg text-muted-foreground mt-2">
+//               Fill out the form below to generate AI-optimised content for your brand.
+//             </p>
+//           </div>
+
+//           <GenerateContentForm />
+//         </div>
+//       </main>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+/////
+
 import { useState, FormEvent } from "react";
 import {
   GenerateTargetAudienceRequest,
@@ -147,7 +179,8 @@ export default function ProductTargetAudiencePage() {
   // UI
   // ------------------------------
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8">
+    <div className="min-h-screen bg-slate-50 bg-gradient-to-b from-[#fff7ef] via-[#ffe9d4] to-[#ffd9b3] text-foreground">
+    <Header />
       <div className="mx-auto max-w-5xl">
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900">
@@ -297,7 +330,7 @@ export default function ProductTargetAudiencePage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
                 >
                   {isLoading ? "Generating..." : "Generate target audience"}
                 </button>
