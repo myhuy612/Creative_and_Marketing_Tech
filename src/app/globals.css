@@ -8,11 +8,6 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
-/* Use Geist Sans globally */
-=======
-/* Use Geist Sans Font globally */
->>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
 body {
   font-family: "Geist Sans", system-ui, sans-serif !important;
 }
