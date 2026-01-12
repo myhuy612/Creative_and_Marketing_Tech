@@ -40,9 +40,20 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* RIGHT SIDE — Generate menu + Search */}
-        <div className="flex items-center space-x-4">
-          {/* Dropdown (hover + 3s delay hide) */}
+        {/* RIGHT SIDE — Search + Dropdown (far right) */}
+        <div className="flex items-center space-x-4 ml-auto">
+          {/* SEARCH INPUT */}
+          <div className="relative hidden md:block">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search…"
+              className="w-56 rounded-full border border-gray-300 px-4 py-1.5 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* DROPDOWN */}
           <div
             className="relative"
             onMouseEnter={handleMouseEnter}
@@ -53,34 +64,29 @@ export default function Header() {
             </button>
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg border border-black/5 z-50">
-                <div className="py-1">
+              <div className="absolute top-full right-0 mt-3 w-72 rounded-xl bg-white shadow-xl border border-black/5 z-50">
+                <div className="py-2">
                   <Link
                     href="/generate"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-100"
                   >
                     Text Generator
                   </Link>
                   <Link
                     href="/generate/image"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-100"
                   >
                     Image Generator
+                  </Link>
+                  <Link
+                    href="/generate/profile"
+                    className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-100"
+                  >
+                    Target Audience Generator
                   </Link>
                 </div>
               </div>
             )}
-          </div>
-
-          {/* SEARCH INPUT */}
-          <div className="relative hidden md:block">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search…"
-              className="w-48 rounded-full border border-gray-300 px-4 py-1.5 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
-            />
           </div>
         </div>
       </div>
