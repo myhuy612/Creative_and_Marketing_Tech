@@ -1,6 +1,10 @@
 
 .env
 .env.*
+
+/.env
+/.env.*
+>>>>>>> d3d25fc13c77d45b70638227b3b954774d26e9f3
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -19,6 +23,8 @@
 # next.js
 /.next/
 /out/
+keys/vertex-sa.json
+
 
 # production
 /build
