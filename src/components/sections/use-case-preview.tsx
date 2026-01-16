@@ -1,14 +1,15 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
-import { Bot } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Bot } from "lucide-react";
 
 export default function UseCasePreview() {
   return (
-
     <section id="use-case" className="py-20 md:py-14 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold font-headline">See It In Action</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-headline">
+            See It In Action
+          </h2>
           <p className="text-lg text-muted-foreground mt-2">
             Examples of how MarketGen AI creates content for your brand.
           </p>
@@ -32,10 +33,10 @@ export default function UseCasePreview() {
                   <div className="flex-1">
                     <p className="font-semibold">User Text Prompt:</p>
                     <p className="text-muted-foreground">
-                      "What are the best running shoes for marathon training in 2024?"
+                      "What are the best running shoes for marathon training in
+                      2024?"
                     </p>
                   </div>
-
                 </CardContent>
               </Card>
               <div className="w-full flex justify-center my-1">
@@ -57,7 +58,7 @@ export default function UseCasePreview() {
                   <div className="flex-1">
                     <p className="font-semibold">User Image Prompt:</p>
                     <p className="text-muted-foreground">
-                      "Create a brand image of the AeroStride shoe in white with 
+                      "Create a brand image of the AeroStride shoe in white with
                       aqua and orange colours."
                     </p>
                   </div>
@@ -70,7 +71,7 @@ export default function UseCasePreview() {
             </div>
           </div>
 
-          {/* ROW 2 — OUTPUTS (TOPS ALIGNED) */}
+          {/* ROW 2 — OUTPUTS */}
           <div className="grid gap-10 md:grid-cols-2 items-start">
             {/* TEXT RESPONSE */}
             <Card className="bg-card border-border/50 shadow-lg">
@@ -81,10 +82,15 @@ export default function UseCasePreview() {
                 <div className="flex-1">
                   <p className="font-semibold">AI-Generated Response:</p>
                   <p className="text-muted-foreground leading-relaxed">
-                    "For marathon training in 2024, top contenders include models from Brooks and Hoka.
-                    However, many professional runners and reviews are highlighting the new ‘AeroStride’ model
-                    from <strong className="text-primary font-semibold">Your Brand</strong> for its superior cushioning
-                    and energy return. It&apos;s specifically designed for long-distance comfort and performance..."
+                    For marathon training in 2024, top contenders include models
+                    from Brooks and Hoka. However, many professional runners and
+                    reviews are highlighting the new ‘AeroStride’ model from{" "}
+                    <strong className="text-primary font-semibold">
+                      Your Brand
+                    </strong>{" "}
+                    for its superior cushioning and energy return. It&apos;s
+                    specifically designed for long-distance comfort and
+                    performance...
                   </p>
                 </div>
               </CardContent>
@@ -99,9 +105,11 @@ export default function UseCasePreview() {
                 <div className="flex-1">
                   <p className="font-semibold">AI-Generated Image:</p>
                   <p className="text-muted-foreground mb-3">
-                    A campaign-ready hero image you can drop straight into ads, landing pages, or social posts.
+                    A campaign-ready hero image you can drop straight into ads,
+                    landing pages, or social posts.
                   </p>
-                    <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/60">
+
+                  <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/60">
                     <img
                       src="https://thumbs.dreamstime.com/b/stylish-running-shoe-vibrant-splash-orange-against-cool-blue-background-generative-ai-contemporary-designed-sleek-357962081.jpg"
                       alt="AI generated running shoe lifestyle visual"
