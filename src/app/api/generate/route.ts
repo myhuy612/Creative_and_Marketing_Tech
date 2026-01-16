@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -8,6 +9,7 @@ const API_KEY =
   process.env.GOOGLE_API_KEY ||
   process.env.GEMINI_API_KEY ||
   "";
+
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
@@ -25,6 +27,7 @@ function normalize(body: any) {
   const contentType =
     (["Instagram Caption", "Blog Post", "Ad Copy"].includes(String(body.contentType))
       ? body.contentType
+
       : "Instagram Caption") as
       | "Instagram Caption"
       | "Blog Post"
@@ -69,6 +72,7 @@ function buildPrompt(p: ReturnType<typeof normalize>) {
     kws ? `Incorporate these keywords/hashtags where natural: ${kws}.` : ``,
     `Length ~${target} words.`,
     `Output plain text only (no markdown).`,
+
   ]
     .filter(Boolean)
     .join(" ");
@@ -85,6 +89,7 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
+
 
     const body = await req.json();
     const data = normalize(body);
