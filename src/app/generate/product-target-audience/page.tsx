@@ -1,7 +1,7 @@
-// app/product-target-audience/page.tsx
+// src/app/generate/product-target-audience/page.tsx
 "use client";
 
-import { useState, FormEvent } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import {
   GenerateTargetAudienceRequest,
   TargetAudience,
@@ -9,6 +9,11 @@ import {
   GenerateTargetAudienceResponse,
   ApiErrorResponse,
 } from "@/types/targetAudience";
+
+import type {
+  TargetAudiencePreset,
+  ListTargetAudiencePresetsResponse,
+} from "@/types/targetAudiencePreset";
 
 const defaultForm: GenerateTargetAudienceRequest = {
   productName: "",
@@ -23,6 +28,19 @@ const defaultForm: GenerateTargetAudienceRequest = {
   notes: "",
 };
 
+function normalizeForm(
+  input: Partial<GenerateTargetAudienceRequest>
+): GenerateTargetAudienceRequest {
+  return {
+    ...defaultForm,
+    ...input,
+    priceRange: input.priceRange ?? { min: null, max: null },
+    features: input.features ?? [],
+    colourStyle: input.colourStyle ?? "",
+    notes: input.notes ?? "",
+  };
+}
+
 export default function ProductTargetAudiencePage() {
   const [form, setForm] = useState<GenerateTargetAudienceRequest>(defaultForm);
   const [featuresInput, setFeaturesInput] = useState(""); // For comma-separated input
@@ -31,6 +49,80 @@ export default function ProductTargetAudiencePage() {
     null
   );
   const [error, setError] = useState<string | null>(null);
+
+  // Presets (DB導入前提：今はAPIから静的プリセット取得)
+  const [presets, setPresets] = useState<TargetAudiencePreset[]>([]);
+  const [presetLoading, setPresetLoading] = useState(false);
+  const [presetError, setPresetError] = useState<string | null>(null);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>("");
+
+  // ------------------------------
+  // Load presets (client-side)
+  // ------------------------------
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPresets() {
+      setPresetLoading(true);
+      setPresetError(null);
+
+      try {
+        const res = await fetch("/api/presets/target-audience", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = (await res.json()) as
+          | ListTargetAudiencePresetsResponse
+          | ApiErrorResponse;
+
+        if (!res.ok) {
+          throw new Error(
+            (data as ApiErrorResponse).message || "Failed to load presets."
+          );
+        }
+
+        if (!cancelled) {
+          setPresets((data as ListTargetAudiencePresetsResponse).presets ?? []);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setPresetError(
+            e instanceof Error ? e.message : "Failed to load presets."
+          );
+        }
+      } finally {
+        if (!cancelled) setPresetLoading(false);
+      }
+    }
+
+    loadPresets();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // ------------------------------
+  // Preset apply/reset
+  // ------------------------------
+  const applyPreset = (preset: TargetAudiencePreset) => {
+    // 既存の生成結果/エラーをクリア（体験が分かりやすい）
+    setError(null);
+    setTargetAudience(null);
+
+    const next = normalizeForm(preset.form);
+    setForm(next);
+    setFeaturesInput((next.features ?? []).join(", "));
+  };
+
+  const resetFormToDefault = () => {
+    setSelectedPresetId("");
+    setError(null);
+    setTargetAudience(null);
+    setFeaturesInput("");
+    setForm(defaultForm);
+  };
 
   // ------------------------------
   // Handlers: update form state
@@ -64,15 +156,20 @@ export default function ProductTargetAudiencePage() {
       const value = e.target.value;
       setForm((prev) => ({
         ...prev,
+        // priceRange が未定義でも落ちないように保険
         priceRange: {
-          ...prev.priceRange,
+          ...(prev.priceRange ?? { min: null, max: null }),
           [field]: value === "" ? null : Number(value),
         },
       }));
     };
 
   const handleFeaturesBlur = () => {
-    if (!featuresInput.trim()) return;
+    // 既存実装を壊さないようにしつつ、空入力のときは features を空に戻せるようにする
+    if (!featuresInput.trim()) {
+      setForm((prev) => ({ ...prev, features: [] }));
+      return;
+    }
     const features = featuresInput
       .split(",")
       .map((f) => f.trim())
@@ -165,6 +262,58 @@ export default function ProductTargetAudiencePage() {
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
               Product information
             </h2>
+
+            {/* Presets */}
+            <div className="mb-4 rounded-lg border border-orange-200 bg-white p-4">
+              <label className="block text-sm font-medium text-slate-700">
+                Preset (optional)
+              </label>
+
+              <div className="mt-2 flex gap-2">
+                <select
+                  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
+                  value={selectedPresetId}
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    setSelectedPresetId(id);
+
+                    const preset = presets.find((p) => p.id === id);
+                    if (preset) applyPreset(preset);
+                    // 未選択に戻した場合は何もしない（手入力を残す）
+                  }}
+                  disabled={presetLoading}
+                >
+                  <option value="">
+                    {presetLoading ? "Loading presets..." : "Select a preset"}
+                  </option>
+                  {presets.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+
+                <button
+                  type="button"
+                  className="rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
+                  onClick={resetFormToDefault}
+                >
+                  Reset
+                </button>
+              </div>
+
+              {selectedPresetId && (
+                <p className="mt-2 text-xs text-slate-600">
+                  {presets.find((p) => p.id === selectedPresetId)?.description}
+                </p>
+              )}
+
+              {presetError && (
+                <p className="mt-2 text-sm text-red-600">
+                  {presetError} (You can still type inputs manually.)
+                </p>
+              )}
+            </div>
 
             {error && (
               <div className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
