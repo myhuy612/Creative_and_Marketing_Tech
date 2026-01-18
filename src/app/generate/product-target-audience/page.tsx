@@ -14,6 +14,8 @@ import type {
   TargetAudiencePreset,
   ListTargetAudiencePresetsResponse,
 } from "@/types/targetAudiencePreset";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 const defaultForm: GenerateTargetAudienceRequest = {
   productName: "",
@@ -244,19 +246,21 @@ export default function ProductTargetAudiencePage() {
   // UI
   // ------------------------------
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8">
-      <div className="mx-auto max-w-5xl">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">
-            Product Target Audience
-          </h1>
-          <p className="mt-2 text-sm text-slate-600">
-            Enter product information and let AI infer an ideal target audience
-            for your marketing.
-          </p>
-        </header>
+    <div className="flex flex-col min-h-dvh bg-gradient-to-b from-[#fff7ef] via-[#ffe9d4] to-[#ffd9b3] text-foreground">
+      <Header />
+      <main className="flex-grow container mx-auto px-4 py-8 md:py-12">
+        <div className="mx-auto max-w-6xl">
+          <header className="mb-10 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold font-headline leading-tight tracking-tighter text-slate-900">
+              Product Target Audience
+            </h1>
+            <p className="mt-3 text-lg text-muted-foreground">
+              Enter product information and let AI infer an ideal target audience
+              for your marketing.
+            </p>
+          </header>
 
-        <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2">
           {/* Left: form */}
           <section className="rounded-xl bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
@@ -446,7 +450,14 @@ export default function ProductTargetAudiencePage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="
+                    w-full rounded-full px-6 py-3 text-base font-semibold
+                    bg-[hsl(var(--primary))] text-white
+                    shadow-[0_8px_24px_rgba(255,115,0,0.35)]
+                    transition-all duration-200
+                    hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
+                    disabled:cursor-not-allowed disabled:opacity-70
+                  "
                 >
                   {isLoading ? "Generating..." : "Generate target audience"}
                 </button>
@@ -564,6 +575,8 @@ export default function ProductTargetAudiencePage() {
           </section>
         </div>
       </div>
+      </main>
+      <Footer />
     </div>
   );
 }
