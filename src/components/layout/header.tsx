@@ -79,7 +79,7 @@ export default function Header() {
                     Image Generator
                   </Link>
                   <Link
-                    href="/generate/profile"
+                    href="/generate/product-target-audience"
                     className="block px-6 py-3 text-base text-gray-700 hover:bg-gray-100"
                   >
                     Target Audience Generator
