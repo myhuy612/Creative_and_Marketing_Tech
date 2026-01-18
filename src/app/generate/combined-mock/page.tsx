@@ -1,3 +1,4 @@
+// src/app/generate/combined-mock/page.tsx
 "use client";
 
 import { useState } from "react";
