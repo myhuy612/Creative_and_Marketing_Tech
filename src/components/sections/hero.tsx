@@ -75,7 +75,9 @@ export default function HeroSection() {
               hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
             "
           >
-            <Link href="/generate/profile">Generate Target Audience Profile</Link>
+            <Link href="/generate/product-target-audience">
+              Generate Target Audience Profile
+            </Link>
           </Button>
         </div>
       </div>
