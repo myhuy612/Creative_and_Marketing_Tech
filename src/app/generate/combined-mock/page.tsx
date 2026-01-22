@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -9,23 +9,23 @@ import {
   Users,
   BarChart3,
 } from "lucide-react";
- 
+
 import GenerateContentForm from "@/components/forms/generate-content-form";
 import GenerateImageForm from "@/components/forms/generate-image-form";
 import ProductTargetAudiencePanel from "@/components/forms/product-target-audience";
- 
+
 type Mode = "text" | "image" | "audience" | "insights";
- 
+
 export default function GeneratePage() {
   const [mode, setMode] = useState<Mode>("text");
- 
+
   const tabBase =
     "w-full rounded-xl border px-5 py-4 transition-all flex flex-col items-center justify-center gap-2 text-center";
   const tabActive = "border-primary bg-primary/10 shadow-sm";
   const tabIdle = "border-border hover:bg-muted/50";
   const tabDisabled =
     "border-border bg-muted/30 text-muted-foreground cursor-not-allowed";
- 
+
   return (
     <section className="min-h-dvh bg-gradient-to-b from-[#fff7ef] via-[#ffe9d4] to-[#ffd9b3]">
       <div className="container mx-auto px-4 py-12">
@@ -36,19 +36,19 @@ export default function GeneratePage() {
                 <Wand2 className="h-7 w-7 text-primary" />
                 Generate
               </CardTitle>
- 
+
               <p className="text-muted-foreground">
                 Choose a tool below, then complete the form.
               </p>
             </CardHeader>
- 
+
             <CardContent className="space-y-8">
               {/* TOOL SELECTOR */}
               <div className="rounded-2xl border border-border/60 bg-muted/20 p-5">
                 <p className="text-sm font-medium text-center mb-4">
                   Select a tool
                 </p>
- 
+
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                   <button
                     type="button"
@@ -60,7 +60,7 @@ export default function GeneratePage() {
                     <FileText className="h-5 w-5" />
                     <span className="font-semibold">Text</span>
                   </button>
- 
+
                   <button
                     type="button"
                     onClick={() => setMode("image")}
@@ -71,7 +71,7 @@ export default function GeneratePage() {
                     <ImageIcon className="h-5 w-5" />
                     <span className="font-semibold">Image</span>
                   </button>
- 
+
                   <button
                     type="button"
                     onClick={() => setMode("audience")}
@@ -82,7 +82,7 @@ export default function GeneratePage() {
                     <Users className="h-5 w-5" />
                     <span className="font-semibold">Target Audience</span>
                   </button>
- 
+
                   {/* 🚧 MARKETING INSIGHTS (COMING SOON) */}
                   <button
                     type="button"
@@ -91,10 +91,13 @@ export default function GeneratePage() {
                   >
                     <BarChart3 className="h-5 w-5" />
                     <span className="font-semibold">Marketing Insights</span>
+                    <span className="text-xs uppercase tracking-wide">
+                      Coming soon
+                    </span>
                   </button>
                 </div>
               </div>
- 
+
               {/* FORMS */}
               <div className="pt-2">
                 {mode === "text" && <GenerateContentForm />}
