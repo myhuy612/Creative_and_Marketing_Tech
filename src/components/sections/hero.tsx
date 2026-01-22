@@ -36,20 +36,6 @@ export default function HeroSection() {
 
         {/* BUTTONS */}
         <div className="mt-4 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6">
-          {/* TEXT BUTTON */}
-          <Button
-            asChild
-            className="
-              rounded-full px-12 py-5 text-xl font-semibold min-h-[60px]
-              bg-[hsl(var(--primary))] text-white
-              shadow-[0_8px_24px_rgba(255,115,0,0.35)]
-              transition-all duration-200
-              hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
-            "
-          >
-            <Link href="/generate">Generate Text</Link>
-          </Button>
-
           {/* IMAGE BUTTON */}
           <Button
             asChild
@@ -61,24 +47,9 @@ export default function HeroSection() {
               hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
             "
           >
-            <Link href="/generate/image">Generate Images</Link>
+            <Link href="/generate/combined-mock">Generate Contents</Link>
           </Button>
 
-          {/* TARGET AUDIENCE PROFILE BUTTON */}
-          <Button
-            asChild
-            className="
-              rounded-full px-12 py-5 text-xl font-semibold min-h-[60px]
-              bg-[hsl(var(--primary))] text-white
-              shadow-[0_8px_24px_rgba(255,115,0,0.35)]
-              transition-all duration-200
-              hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(255,115,0,0.45)]
-            "
-          >
-            <Link href="/generate/product-target-audience">
-              Generate Target Audience Profile
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

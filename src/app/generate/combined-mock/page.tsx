@@ -91,9 +91,6 @@ export default function GeneratePage() {
                   >
                     <BarChart3 className="h-5 w-5" />
                     <span className="font-semibold">Marketing Insights</span>
-                    <span className="text-xs uppercase tracking-wide">
-                      Coming soon
-                    </span>
                   </button>
                 </div>
               </div>
