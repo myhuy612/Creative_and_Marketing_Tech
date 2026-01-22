@@ -18,7 +18,7 @@ export default function UseCasePreview() {
         {/* TWO ROWS: TOP PROMPTS + BOTTOM OUTPUTS */}
         <div className="max-w-5xl mx-auto space-y-8">
           {/* ROW 1 — PROMPTS */}
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid gap-10 md:grid-cols-3">
             {/* TEXT PROMPT */}
             <div className="space-y-2">
               <Card className="bg-transparent border-none shadow-none">
@@ -69,10 +69,44 @@ export default function UseCasePreview() {
                 <div className="w-24 h-px bg-border/50" />
               </div>
             </div>
+            
+            {/* 👉 NEW: TARGET AUDIENCE PROMPT */}
+<div className="space-y-2">
+  <Card className="bg-transparent border-none shadow-none">
+    <CardContent className="p-4 flex items-start gap-4">
+      <Avatar>
+  <AvatarImage
+    src="https://www.w3schools.com/w3images/avatar6.png"
+    alt="User"
+  />
+  <AvatarFallback>U</AvatarFallback>
+</Avatar>
+
+
+      <div className="flex-1">
+        <p className="font-semibold">User Audience Input:</p>
+
+        {/* Keep it “form-like” so it looks different from the other two prompts */}
+        <div className="text-sm text-muted-foreground space-y-1 mt-1">
+          <p>• Product: Running shoes</p>
+          <p>• Platform: Instagram</p>
+          <p>• Goal: Brand awareness</p>
+          <p>• Tone: Energetic, premium</p>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+
+  <div className="w-full flex justify-center my-1">
+    <div className="w-24 h-px bg-border/50" />
+  </div>
+</div>
           </div>
 
+
+
           {/* ROW 2 — OUTPUTS */}
-          <div className="grid gap-10 md:grid-cols-2 items-start">
+          <div className="grid gap-10 md:grid-cols-3 items-start">
             {/* TEXT RESPONSE */}
             <Card className="bg-card border-border/50 shadow-lg">
               <CardContent className="p-6 flex items-start gap-4">
@@ -119,6 +153,39 @@ export default function UseCasePreview() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* 👉 NEW: TARGET AUDIENCE OUTPUT */}
+<Card className="bg-card border-border/50 shadow-lg">
+  <CardContent className="p-6 flex items-start gap-4">
+    <Avatar className="bg-orange-500/10 text-orange-600 flex-shrink-0">
+      <Bot className="h-6 w-6 m-2" />
+    </Avatar>
+
+    <div className="flex-1">
+      <p className="font-semibold mb-2">
+        AI-Generated Audience Profile:
+      </p>
+
+      <div className="text-sm text-muted-foreground space-y-2">
+        <p><strong>Age:</strong> 25–40</p>
+        <p><strong>Location:</strong> Urban Australia</p>
+        <p><strong>Interests:</strong> Fitness, lifestyle, performance gear</p>
+        <p><strong>Motivation:</strong> Comfort + premium design</p>
+      </div>
+
+      <div className="mt-4">
+        <p className="font-semibold text-sm mb-1">Content Direction</p>
+        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+          <li>Highlight long-distance comfort</li>
+          <li>Use energetic, premium tone</li>
+          <li>Focus on lifestyle visuals</li>
+        </ul>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+
           </div>
         </div>
       </div>
