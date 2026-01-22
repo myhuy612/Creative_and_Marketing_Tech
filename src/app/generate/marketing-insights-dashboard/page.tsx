@@ -225,15 +225,14 @@ export default function MarketingInsightDashboardPage() {
               Marketing Insights
             </h1>
             <p className="mt-3 text-lg text-muted-foreground">
-              Paste generated text/image outputs and preview engagement-style
-              metrics (mock now, API later).
+              Paste generated text and image outputs to preview engagement-style metrics.
             </p>
           </header>
 
           {/* TOP CONTROLS */}
           <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="text-sm text-muted-foreground">
-              Tip: leave inputs empty to demo with mock values.
+              Uses mock engagement values when no data is provided.
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -275,8 +274,8 @@ export default function MarketingInsightDashboardPage() {
             <div className="lg:col-span-5 rounded-2xl bg-white p-6 shadow-sm border border-border/50">
               <h2 className="text-lg font-semibold text-slate-900">Inputs</h2>
               <p className="text-sm text-muted-foreground">
-                Paste results from <b>Generate Text</b> / <b>Generate Image</b>
-                here. (Later your teammate’s endpoint can accept the same shape.)
+                Paste results from <b>Generate Text</b> and <b>Generate Image</b>.
+                The insights endpoint accepts this same input shape.
               </p>
 
               <div className="mt-6 grid gap-4">
@@ -395,7 +394,7 @@ export default function MarketingInsightDashboardPage() {
                     disabled:opacity-60 disabled:cursor-not-allowed
                   "
                 >
-                  {loading ? "Generating…" : "Generate Insights"}
+                  {loading ? "Generating…" : "View Insights"}
                 </button>
 
                 {error && (
