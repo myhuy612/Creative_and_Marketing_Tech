@@ -2,11 +2,40 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bot } from "lucide-react";
 
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="space-y-1">
+      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </p>
+      <div className="rounded-md border border-border bg-background px-2.5 py-1.5 text-xs leading-snug">
+        {value}
+      </div>
+    </div>
+  );
+}
+
+
+function FieldGroup({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-3">
+      <p className="text-sm font-semibold">{title}</p>
+      <div className="space-y-3">{children}</div>
+    </div>
+  );
+}
+
 export default function UseCasePreview() {
   return (
     <section id="use-case" className="py-20 md:py-14 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-headline">
             See It In Action
           </h2>
@@ -15,177 +44,159 @@ export default function UseCasePreview() {
           </p>
         </div>
 
-        {/* TWO ROWS: TOP PROMPTS + BOTTOM OUTPUTS */}
-        <div className="max-w-5xl mx-auto space-y-8">
-          {/* ROW 1 — PROMPTS */}
-          <div className="grid gap-10 md:grid-cols-3">
-            {/* TEXT PROMPT */}
-            <div className="space-y-2">
-              <Card className="bg-transparent border-none shadow-none">
-                <CardContent className="p-4 flex items-start gap-4">
-                  <Avatar>
-                    <AvatarImage
-                      src="https://www.w3schools.com/w3images/avatar5.png"
-                      alt="User"
-                    />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <p className="font-semibold">User Text Prompt:</p>
-                    <p className="text-muted-foreground">
-                      "What are the best running shoes for marathon training in
-                      2024?"
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              <div className="w-full flex justify-center my-1">
-                <div className="w-24 h-px bg-border/50" />
-              </div>
-            </div>
-
-            {/* IMAGE PROMPT */}
-            <div className="space-y-1">
-              <Card className="bg-transparent border-none shadow-none">
-                <CardContent className="p-4 flex items-start gap-4">
-                  <Avatar>
-                    <AvatarImage
-                      src="https://www.w3schools.com/w3images/avatar2.png"
-                      alt="User"
-                    />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <p className="font-semibold">User Image Prompt:</p>
-                    <p className="text-muted-foreground">
-                      "Create a brand image of the AeroStride shoe in white with
-                      aqua and orange colours."
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="w-full flex justify-center">
-                <div className="w-24 h-px bg-border/50" />
-              </div>
-            </div>
-            
-            {/* 👉 NEW: TARGET AUDIENCE PROMPT */}
-<div className="space-y-2">
-  <Card className="bg-transparent border-none shadow-none">
-    <CardContent className="p-4 flex items-start gap-4">
-      <Avatar>
-  <AvatarImage
-    src="https://www.w3schools.com/w3images/avatar6.png"
-    alt="User"
-  />
-  <AvatarFallback>U</AvatarFallback>
-</Avatar>
-
-
-      <div className="flex-1">
-        <p className="font-semibold">User Audience Input:</p>
-
-        {/* Keep it “form-like” so it looks different from the other two prompts */}
-        <div className="text-sm text-muted-foreground space-y-1 mt-1">
-          <p>• Product: Running shoes</p>
-          <p>• Platform: Instagram</p>
-          <p>• Goal: Brand awareness</p>
-          <p>• Tone: Energetic, premium</p>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-
-  <div className="w-full flex justify-center my-1">
-    <div className="w-24 h-px bg-border/50" />
-  </div>
-</div>
-          </div>
-
-
-
-          {/* ROW 2 — OUTPUTS */}
-          <div className="grid gap-10 md:grid-cols-3 items-start">
-            {/* TEXT RESPONSE */}
-            <Card className="bg-card border-border/50 shadow-lg">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Avatar className="bg-primary/10 text-primary flex-shrink-0">
-                  <Bot className="h-6 w-6 m-2" />
+        {/* THREE GENERATOR COLUMNS */}
+        <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
+          {/* ================= TEXT GENERATOR ================= */}
+          <div className="space-y-6">
+            {/* INPUT */}
+            <Card className="border-border/50">
+              <CardContent className="p-5 flex gap-4">
+                <Avatar>
+                  <AvatarImage src="https://www.w3schools.com/w3images/avatar5.png" />
+                  <AvatarFallback>U</AvatarFallback>
                 </Avatar>
+
                 <div className="flex-1">
-                  <p className="font-semibold">AI-Generated Response:</p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    For marathon training in 2024, top contenders include models
-                    from Brooks and Hoka. However, many professional runners and
-                    reviews are highlighting the new ‘AeroStride’ model from{" "}
-                    <strong className="text-primary font-semibold">
-                      Your Brand
-                    </strong>{" "}
-                    for its superior cushioning and energy return. It&apos;s
-                    specifically designed for long-distance comfort and
-                    performance...
-                  </p>
+                  <FieldGroup title="Text generator inputs">
+                    <Field label="Brand name" value="AeroStride" />
+                    <Field label="Content type" value="Blog post" />
+                    <Field label="Tone" value="Energetic, premium" />
+                    <Field label="Goal" value="Brand awareness" />
+                    <Field label="Keywords" value="#marathon #runclub" />
+                  </FieldGroup>
                 </div>
               </CardContent>
             </Card>
 
-            {/* IMAGE RESPONSE */}
-            <Card className="bg-card border-border/50 shadow-lg">
-              <CardContent className="p-6 flex items-start gap-4">
-                <Avatar className="bg-primary/10 text-primary flex-shrink-0">
+            {/* OUTPUT */}
+            <Card className="border-border/50 shadow-lg">
+              <CardContent className="p-6 flex gap-4">
+                <Avatar className="bg-primary/10 text-primary">
                   <Bot className="h-6 w-6 m-2" />
                 </Avatar>
-                <div className="flex-1">
-                  <p className="font-semibold">AI-Generated Image:</p>
-                  <p className="text-muted-foreground mb-3">
-                    A campaign-ready hero image you can drop straight into ads,
-                    landing pages, or social posts.
-                  </p>
 
-                  <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/60">
+                <div>
+                  <p className="font-semibold mb-1">AI-generated copy</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    For marathon training in 2024, top contenders include models
+                    from Brooks and Hoka. However, runners are increasingly
+                    choosing <strong className="text-primary">AeroStride</strong>{" "}
+                    for its superior cushioning, energy return, and premium
+                    comfort designed for long-distance performance…
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* ================= IMAGE GENERATOR ================= */}
+          <div className="space-y-6">
+            {/* INPUT */}
+            <Card className="border-border/50">
+              <CardContent className="p-5 flex gap-4">
+                <Avatar>
+                  <AvatarImage src="https://www.w3schools.com/w3images/avatar2.png" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+
+                <div className="flex-1">
+                  <FieldGroup title="Image generator inputs">
+                    <Field label="Brand name" value="AeroStride" />
+                    <Field
+                      label="Image description"
+                      value="Running shoe lifestyle shot with white base and aqua + orange accents"
+                    />
+                    <Field label="Marketing style" value="Clean" />
+                  </FieldGroup>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* OUTPUT */}
+            <Card className="border-border/50 shadow-lg">
+              <CardContent className="p-6 flex gap-4">
+                <Avatar className="bg-primary/10 text-primary">
+                  <Bot className="h-6 w-6 m-2" />
+                </Avatar>
+
+                <div className="flex-1">
+                  <p className="font-semibold mb-2">AI-generated image</p>
+
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border/60">
                     <img
                       src="https://thumbs.dreamstime.com/b/stylish-running-shoe-vibrant-splash-orange-against-cool-blue-background-generative-ai-contemporary-designed-sleek-357962081.jpg"
-                      alt="AI generated running shoe lifestyle visual"
+                      alt="AI generated running shoe"
                       className="h-full w-full object-cover"
                     />
                   </div>
                 </div>
               </CardContent>
             </Card>
+          </div>
 
-            {/* 👉 NEW: TARGET AUDIENCE OUTPUT */}
-<Card className="bg-card border-border/50 shadow-lg">
-  <CardContent className="p-6 flex items-start gap-4">
-    <Avatar className="bg-orange-500/10 text-orange-600 flex-shrink-0">
-      <Bot className="h-6 w-6 m-2" />
-    </Avatar>
+          {/* ================= TARGET AUDIENCE ================= */}
+          <div className="space-y-6">
+            {/* INPUT */}
+            <Card className="border-border/50">
+              <CardContent className="p-5 flex gap-4">
+                <Avatar>
+                  <AvatarImage src="https://www.w3schools.com/w3images/avatar6.png" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
 
-    <div className="flex-1">
-      <p className="font-semibold mb-2">
-        AI-Generated Audience Profile:
-      </p>
+                <div className="flex-1">
+                  <FieldGroup title="Target audience inputs">
+                    <Field label="Product" value="AeroStride running shoes" />
+                    <Field label="Category" value="Fitness / Footwear" />
+                    <Field label="Luxury level" value="Mid-range" />
+                    <Field label="Platform" value="Instagram" />
+                    <Field label="Tone" value="Energetic, premium" />
+                  </FieldGroup>
+                </div>
+              </CardContent>
+            </Card>
 
-      <div className="text-sm text-muted-foreground space-y-2">
-        <p><strong>Age:</strong> 25–40</p>
-        <p><strong>Location:</strong> Urban Australia</p>
-        <p><strong>Interests:</strong> Fitness, lifestyle, performance gear</p>
-        <p><strong>Motivation:</strong> Comfort + premium design</p>
-      </div>
+            {/* OUTPUT */}
+            <Card className="border-border/50 shadow-lg">
+              <CardContent className="p-6 flex gap-4">
+                <Avatar className="bg-orange-500/10 text-orange-600">
+                  <Bot className="h-6 w-6 m-2" />
+                </Avatar>
 
-      <div className="mt-4">
-        <p className="font-semibold text-sm mb-1">Content Direction</p>
-        <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-          <li>Highlight long-distance comfort</li>
-          <li>Use energetic, premium tone</li>
-          <li>Focus on lifestyle visuals</li>
-        </ul>
-      </div>
-    </div>
-  </CardContent>
-</Card>
+                <div className="flex-1">
+                  <p className="font-semibold mb-2">
+                    AI-generated audience profile
+                  </p>
 
+                  <div className="text-sm text-muted-foreground space-y-2">
+                    <p>
+                      <strong>Age:</strong> 25–40
+                    </p>
+                    <p>
+                      <strong>Location:</strong> Urban Australia
+                    </p>
+                    <p>
+                      <strong>Interests:</strong> Fitness, lifestyle, performance
+                      gear
+                    </p>
+                    <p>
+                      <strong>Motivation:</strong> Comfort + premium design
+                    </p>
+                  </div>
 
+                  <div className="mt-3">
+                    <p className="font-semibold text-sm mb-1">
+                      Content direction
+                    </p>
+                    <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+                      <li>Highlight long-distance comfort</li>
+                      <li>Use energetic, premium tone</li>
+                      <li>Focus on lifestyle visuals</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
