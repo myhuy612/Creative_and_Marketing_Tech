@@ -1,6 +1,8 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ProductTargetAudienceForm from "@/components/forms/product-target-audience";
+import AudiencePersonaPage from "@/components/forms/target-persona-form";
+
 
 export default function ProductTargetAudiencePage() {
   return (
@@ -19,6 +21,7 @@ export default function ProductTargetAudiencePage() {
           </div>
 
           <ProductTargetAudienceForm />
+          {/* <AudiencePersonaPage/> */}
         </div>
       </main>
       <Footer />

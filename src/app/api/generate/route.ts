@@ -5,6 +5,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+
 const API_KEY =
   process.env.GOOGLE_API_KEY ||
   process.env.GEMINI_API_KEY ||
