@@ -14,7 +14,8 @@ import {
 
 import GenerateContentForm from "@/components/forms/generate-content-form";
 import GenerateImageForm from "@/components/forms/generate-image-form";
-import ProductTargetAudiencePanel from "@/components/forms/product-target-audience";
+// import ProductTargetAudiencePanel from "@/components/forms/product-target-audience";
+import ProductTargetAudiencePanel from "@/components/forms/target-persona-form";
 import MarketingInsightsPanel from "@/components/forms/marketing-insights-panel";
 
 type Mode = "text" | "image" | "audience" | "insights";
