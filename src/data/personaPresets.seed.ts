@@ -8,19 +8,19 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "D2C Fitness (Urban Professionals)",
     description: "Time-poor young professionals who want convenient, premium fitness solutions.",
     tags: ["D2C", "Fitness", "Urban"],
-    mode: "targetAudienceJson",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
       numPersonas: 1,
       context: { category: "Fitness", tone: "energetic, premium, concise" },
-      targetAudience: {
-        summary: "Young professionals (25–35) in urban areas who value convenience, quality, and modern design.",
-        ageRange: { min: 25, max: 35 },
-        incomeLevel: "Mid to upper-mid",
-        demographics: "Urban, time-poor, research-driven buyers",
-        interests: ["fitness", "tech", "wellness", "productivity"],
+      manualTargetInfo: {
+        audienceSummary:
+          "Young urban professionals (25–35) who value convenience, quality, and modern design in fitness products/services.",
+        goals: ["Stay healthy with minimal time", "Use products that feel premium", "Track progress easily"],
+        pains: ["Too busy to plan workouts", "Low-quality products feel wasteful", "Overwhelmed by choices"],
+        motivations: ["Convenience and time savings", "Performance and measurable results", "Social proof and reviews"],
         preferredChannels: ["Instagram", "TikTok", "YouTube", "Google Search"],
+        geography: "Urban (metro areas)",
       },
     },
   },
@@ -29,7 +29,6 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "Eco Home (Family Buyers)",
     description: "Family households seeking sustainable, safe, and affordable home products.",
     tags: ["Eco", "Home", "Family"],
-    mode: "manual",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
@@ -51,7 +50,6 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "B2B SaaS (SMB Ops Manager)",
     description: "Ops/IT managers who need simple, reliable tools that reduce admin overhead.",
     tags: ["B2B", "SaaS", "SMB"],
-    mode: "manual",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
@@ -73,18 +71,19 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "Local Café (Community Regulars)",
     description: "Locals who value atmosphere, consistency, and small treats in daily routines.",
     tags: ["Local", "Hospitality", "Community"],
-    mode: "targetAudienceJson",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
       numPersonas: 1,
       context: { category: "Hospitality", tone: "friendly, welcoming, playful" },
-      targetAudience: {
-        summary:
-          "Local residents and nearby office workers who visit cafés for daily coffee rituals and social connection.",
-        demographics: "Mix of students, office workers, and nearby residents; convenience-driven",
-        interests: ["coffee", "brunch", "local events", "Instagrammable food"],
+      manualTargetInfo: {
+        audienceSummary:
+          "Local residents and nearby office workers who visit cafés for daily coffee rituals, convenience, and social connection.",
+        goals: ["Find a reliable daily coffee spot", "Enjoy a cozy atmosphere", "Discover small treats and seasonal specials"],
+        pains: ["Inconsistent coffee quality", "Long wait times during rush", "Limited seating or noisy environment"],
+        motivations: ["Habit and routine", "Friendly staff and community feel", "Shareable experiences (photos, friends)"],
         preferredChannels: ["Instagram", "Google Maps", "TikTok", "Word of mouth"],
+        geography: "Local neighborhood catchment",
       },
     },
   },
@@ -93,7 +92,6 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "Travel App (Weekend Explorers)",
     description: "People planning short trips who want curated recommendations fast.",
     tags: ["Travel", "App", "Lifestyle"],
-    mode: "manual",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
@@ -115,19 +113,19 @@ export const PERSONA_PRESETS_SEED: PersonaPreset[] = [
     name: "Luxury Fashion (High Income)",
     description: "High-income buyers seeking exclusivity, craftsmanship, and status signals.",
     tags: ["Luxury", "Fashion", "Premium"],
-    mode: "targetAudienceJson",
     version: 1,
     updatedAt: new Date().toISOString(),
     payload: {
       numPersonas: 1,
       context: { category: "Luxury Fashion", tone: "minimal, refined, aspirational" },
-      targetAudience: {
-        summary:
+      manualTargetInfo: {
+        audienceSummary:
           "High-income professionals and style enthusiasts who value craftsmanship, exclusivity, and brand heritage.",
-        incomeLevel: "High",
-        demographics: "Metro-based; quality-first; brand-aware; status-sensitive",
-        interests: ["fashion", "design", "luxury travel", "fine dining"],
+        goals: ["Own timeless pieces", "Signal taste and status subtly", "Buy from trusted heritage brands"],
+        pains: ["Too many mass-market ‘luxury’ options", "Concern about authenticity", "Hard to find truly unique pieces"],
+        motivations: ["Exclusivity and scarcity", "Craftsmanship and materials", "Brand story and legacy"],
         preferredChannels: ["Instagram", "High-end magazines", "YouTube", "Private events"],
+        geography: "Metro / international travelers",
       },
     },
   },
