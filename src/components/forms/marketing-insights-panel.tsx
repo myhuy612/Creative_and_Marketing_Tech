@@ -1,21 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 type InsightPayload = {
-  preset?: string;
-
   // product/campaign
   brandName: string;
   productName: string;
@@ -44,52 +35,6 @@ type InsightMetrics = {
   shares: number;
   saves: number;
 };
-
-const PRESETS: Array<{
-  id: string;
-  label: string;
-  values: Partial<InsightPayload>;
-}> = [
-  {
-    id: "eco-backpack",
-    label: "Eco-friendly waterproof backpack",
-    values: {
-      brandName: "AeroStride",
-      productName: "Eco-friendly waterproof backpack",
-      category: "Fashion / Outdoor",
-      region: "US / Canada",
-      priceMin: "79",
-      priceMax: "129",
-      features: "Waterproof, recycled materials, lightweight, laptop sleeve",
-      competitors: "Patagonia, Herschel, The North Face",
-      goal: "Positioning + channel recommendations + content plan",
-      notes:
-        "Focus on commuters + weekend hikers. Emphasize sustainability + durability.",
-      platform: "Instagram",
-      contentType: "Instagram Caption",
-      keywords: "#outdoor #backpack #ecofriendly",
-    },
-  },
-  {
-    id: "saas",
-    label: "SaaS: AI meeting notes",
-    values: {
-      brandName: "NotePilot",
-      productName: "AI meeting notes assistant",
-      category: "B2B SaaS",
-      region: "Global (EN)",
-      priceMin: "12",
-      priceMax: "29",
-      features: "Auto transcription, action items, CRM sync, templates",
-      competitors: "Otter, Fireflies, Notion AI",
-      goal: "ICP + messaging + landing page angles",
-      notes: "Target: sales + CS teams. Objection: accuracy and security.",
-      platform: "LinkedIn",
-      contentType: "Ad Copy",
-      keywords: "#b2b #sales #productivity",
-    },
-  },
-];
 
 const DEFAULT_METRICS: InsightMetrics = {
   views: 7818,
@@ -152,7 +97,6 @@ function StatCard({
 
 /**
  * Horizontal bar row (better for comparisons than vertical bars).
- * Good for predicted metrics because users can read it instantly.
  */
 function CompareBars({
   rows,
@@ -192,7 +136,6 @@ function CompareBars({
 
 /**
  * Engagement breakdown: focuses on actions (likes/comments/shares/saves).
- * Much more meaningful than charting "views/reach" together with tiny counts.
  */
 function EngagementBreakdown({ metrics }: { metrics: InsightMetrics }) {
   const total =
@@ -258,7 +201,7 @@ function ScorePill({
 
 function buildInterpretation(m: InsightMetrics) {
   const engagement = m.likes + m.comments + m.shares + m.saves;
-  const er = safeDiv(engagement, m.views); // engagement rate vs views
+  const er = safeDiv(engagement, m.views);
   const shareSave = m.shares + m.saves;
   const highIntentRatio = safeDiv(shareSave, engagement || 1);
   const reachToViews = safeDiv(m.reach, m.views);
@@ -269,7 +212,6 @@ function buildInterpretation(m: InsightMetrics) {
 
   const bullets: string[] = [];
 
-  // Reach vs views (rough meaning)
   if (reachToViews >= 0.9) {
     bullets.push("Reach is close to views → strong distribution potential.");
   } else if (reachToViews < 0.75) {
@@ -278,16 +220,20 @@ function buildInterpretation(m: InsightMetrics) {
     bullets.push("Reach-to-views looks balanced for a typical post.");
   }
 
-  // High-intent signals
   if (highIntentRatio >= 0.22) {
-    bullets.push("Saves/Shares are relatively high → content may feel useful or shareable.");
+    bullets.push(
+      "Saves/Shares are relatively high → content may feel useful or shareable."
+    );
   } else if (highIntentRatio < 0.12) {
-    bullets.push("Saves/Shares are low → consider clearer value or stronger hook/CTA.");
+    bullets.push(
+      "Saves/Shares are low → consider clearer value or stronger hook/CTA."
+    );
   } else {
-    bullets.push("High-intent actions are moderate → room to improve “save/share” value.");
+    bullets.push(
+      "High-intent actions are moderate → room to improve “save/share” value."
+    );
   }
 
-  // Comments hint
   if (safeDiv(m.comments, m.views) < 0.001) {
     bullets.push("Comments are low → try a question-based CTA to invite replies.");
   }
@@ -377,7 +323,6 @@ export default function MarketingInsightsPanel() {
   const [inputMode, setInputMode] = useState<"product" | "paste">("product");
 
   const [payload, setPayload] = useState<InsightPayload>({
-    preset: "",
     brandName: "",
     productName: "",
     category: "",
@@ -399,21 +344,8 @@ export default function MarketingInsightsPanel() {
   const [resultText, setResultText] = useState<string>("");
   const [metrics, setMetrics] = useState<InsightMetrics | null>(null);
 
-  const presetMap = useMemo(() => {
-    const map = new Map<string, (typeof PRESETS)[number]>();
-    PRESETS.forEach((p) => map.set(p.id, p));
-    return map;
-  }, []);
-
-  const applyPreset = (id: string) => {
-    const preset = presetMap.get(id);
-    if (!preset) return;
-    setPayload((prev) => ({ ...prev, preset: id, ...preset.values }));
-  };
-
   const reset = () => {
     setPayload({
-      preset: "",
       brandName: "",
       productName: "",
       category: "",
@@ -462,7 +394,10 @@ export default function MarketingInsightsPanel() {
     shown.likes + shown.comments + shown.shares + shown.saves;
 
   const er = safeDiv(engagementTotal, shown.views);
-  const highIntentRatio = safeDiv(shown.shares + shown.saves, engagementTotal || 1);
+  const highIntentRatio = safeDiv(
+    shown.shares + shown.saves,
+    engagementTotal || 1
+  );
 
   const interpretation = buildInterpretation(shown);
   const qualityTone =
@@ -514,26 +449,6 @@ export default function MarketingInsightsPanel() {
         <CardContent className="space-y-4">
           {inputMode === "product" ? (
             <>
-              <div className="rounded-xl border border-border/50 bg-black/[0.02] p-4">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-slate-900">
-                    Preset (optional)
-                  </p>
-                  <Select value={payload.preset || ""} onValueChange={applyPreset}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a preset" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PRESETS.map((p) => (
-                        <SelectItem key={p.id} value={p.id}>
-                          {p.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
               <div className="space-y-2">
                 <p className="text-sm font-medium text-slate-900">Brand name</p>
                 <Input
@@ -630,9 +545,7 @@ export default function MarketingInsightsPanel() {
                 <p className="text-sm font-medium text-slate-900">Goal</p>
                 <Input
                   value={payload.goal}
-                  onChange={(e) =>
-                    setPayload({ ...payload, goal: e.target.value })
-                  }
+                  onChange={(e) => setPayload({ ...payload, goal: e.target.value })}
                   placeholder="e.g. Messaging, channel plan, launch strategy"
                 />
               </div>
@@ -663,7 +576,9 @@ export default function MarketingInsightsPanel() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-slate-900">Content type</p>
+                  <p className="text-sm font-medium text-slate-900">
+                    Content type
+                  </p>
                   <Input
                     value={payload.contentType}
                     onChange={(e) =>
@@ -744,12 +659,12 @@ export default function MarketingInsightsPanel() {
         </CardContent>
       </Card>
 
-      {/* RIGHT: OUTPUT (clearer hierarchy + interpretation) */}
+      {/* RIGHT: OUTPUT */}
       <div className="lg:col-span-8 space-y-6">
         <Card className="border-border/60 bg-white">
           <CardHeader className="space-y-1">
             <CardTitle className="text-lg text-slate-900">
-              Predicted performance
+              Marketing insights
             </CardTitle>
             <p className="text-sm text-muted-foreground">
               Engagement-style metrics based on the provided inputs.
@@ -844,13 +759,16 @@ export default function MarketingInsightsPanel() {
                 ))}
               </ul>
               <p className="mt-3 text-xs text-muted-foreground">
-                These notes are heuristic (mock) and will improve when the API is connected.
+                These notes are heuristic (mock) and will improve when the API is
+                connected.
               </p>
             </div>
 
             {/* STATUS + DETAILS */}
             {loading && (
-              <p className="text-sm text-muted-foreground">Generating insights…</p>
+              <p className="text-sm text-muted-foreground">
+                Generating insights…
+              </p>
             )}
 
             {!resultText && !loading && (
