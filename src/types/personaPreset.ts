@@ -1,24 +1,21 @@
 // src/types/personaPreset.ts
 
-import type { GeneratePersonaRequest, TargetAudience } from "@/types/persona";
+import type { GeneratePersonaRequest } from "@/types/persona";
 
-export type PersonaPresetMode = "targetAudienceJson" | "manual";
-
+// Manual-only presets
 export interface PersonaPreset {
-  id: string; // stable id (UUID推奨だがseed段階はslugでもOK)
+  id: string;
   name: string;
   description: string;
   tags?: string[];
-  mode: PersonaPresetMode;
 
   payload: {
     numPersonas?: 1 | 2 | 3;
     context?: GeneratePersonaRequest["context"];
-    targetAudience?: TargetAudience; // mode=targetAudienceJson の場合に使用
-    manualTargetInfo?: GeneratePersonaRequest["manualTargetInfo"]; // mode=manual の場合に使用
+    manualTargetInfo: NonNullable<GeneratePersonaRequest["manualTargetInfo"]>;
   };
 
-  // 将来DB導入時に更新の追跡をしやすくするためのメタ
+  // DB導入後に便利なメタ
   version?: number;
   updatedAt?: string; // ISO string
 }
