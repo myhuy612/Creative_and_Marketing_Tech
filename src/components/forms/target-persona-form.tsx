@@ -306,12 +306,16 @@ export default function AudiencePersonaPage() {
       return;
     }
 
-    let last = "";
-    try {
-      last = localStorage.getItem(LS_LAST_PERSONA_PRESET_ID) || "";
-    } catch {
-      last = "";
-    }
+ let last = "";
+
+if (typeof window !== "undefined") {
+  try {
+    last = localStorage.getItem(LS_LAST_PERSONA_PRESET_ID) || "";
+  } catch {
+    last = "";
+  }
+}
+
 
     if (last && personaPresets.some((p) => p.id === last)) {
       setSelectedPersonaPresetId(last);
