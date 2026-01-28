@@ -13,6 +13,7 @@ import {
 import GenerateContentForm from "@/components/forms/generate-content-form";
 import GenerateImageForm from "@/components/forms/generate-image-form";
 import ProductTargetAudiencePanel from "@/components/forms/product-target-audience";
+import GenerateInsightForm from "@/components/forms/generate-insight-form";
 
 type Mode = "text" | "image" | "audience" | "insights";
 
@@ -86,8 +87,10 @@ export default function GeneratePage() {
                   {/* 🚧 MARKETING INSIGHTS (COMING SOON) */}
                   <button
                     type="button"
-                    disabled
-                    className={`${tabBase} ${tabDisabled}`}
+                    onClick={() => setMode("insights")}
+                    className={`${tabBase} ${
+                      mode === "insights" ? tabActive : tabIdle
+                    }`}
                   >
                     <BarChart3 className="h-5 w-5" />
                     <span className="font-semibold">Marketing Insights</span>
@@ -100,6 +103,7 @@ export default function GeneratePage() {
                 {mode === "text" && <GenerateContentForm />}
                 {mode === "image" && <GenerateImageForm />}
                 {mode === "audience" && <ProductTargetAudiencePanel />}
+                {mode === "insights" && <GenerateInsightForm />}
               </div>
             </CardContent>
           </Card>
