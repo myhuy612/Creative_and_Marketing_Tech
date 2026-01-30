@@ -1,76 +1,55 @@
-# Creative and Marketing Tech
+# InnovAIte – Marketing Website (Marketing Stream)
 
-A **prototype web application** built in the **AI Prototyping Lab (InnovAIte-Deakin)**.  
-It demonstrates how artificial intelligence can support marketers by generating content such as **Instagram captions, blog posts, and ad copy**.
-
----
-
-## 1. Project Purpose
-
-The aim of this prototype is to explore how AI can streamline marketing workflows.  
-It showcases how marketers can save time, improve creativity, and maintain brand consistency by leveraging AI tools.
+This repository contains the **Marketing Website** for the InnovAIte project (Marketing Stream).  
+The app provides AI-powered features such as **text generation**, **image generation**, **target audience**, **persona outputs**, and **insights / engagement prediction (mock or WIP depending on workflow availability)**.
 
 ---
 
-## 2. Key Features
-
-- **AI Content Generation**  
-  Generate marketing copy tailored to brand tone, length, and campaign goals.  
-
-- **Frontend Prototype**  
-  Built with **Next.js**, **TypeScript**, and **Tailwind CSS** for a responsive, modern UI.  
-
-- **Backend Integration**  
-  Connects with AI APIs to deliver real-time content generation.  
-
-- **Customizable Inputs**  
-  Supports brand name, campaign objectives, keywords, and content types (Instagram captions, blogs, ads).  
+## Tech Stack
+- **Next.js + React**
+- **TypeScript**
+- **Node.js**
+- **n8n** (workflow automation / orchestration)
+- AI services (e.g., **Gemini / Imagen** depending on configured provider)
 
 ---
 
-## 3. Tech Stack
-
-- **Frontend**: Next.js (React framework), TypeScript  
-- **Styling**: Tailwind CSS  
-- **Backend/Hosting**: Firebase setup included in repo  
-- **Other**: Google AI API integration  
+## Prerequisites
+Make sure you have:
+- **Node.js** (LTS recommended)
+- **npm** (or pnpm/yarn if your team uses it)
+- Access to required API keys (AI provider + n8n endpoint)
 
 ---
 
-## 4. Getting Started
+## Getting Started (Local Setup)
 
-### 4.1 Prerequisites
-- Node.js (v16 or later)  
-- npm (or yarn) package manager  
-
-### 4.2 Installation
-Clone the repository and install dependencies:
-
+### 1 Clone the repository
 ```bash
-git clone https://github.com/InnovAIte-Deakin/Creative_and_Marketing_Tech.git
-cd Creative_and_Marketing_Tech
-npm install
-```
+git clone <YOUR_GITHUB_REPO_URL>
+cd <YOUR_PROJECT_FOLDER>
 
-## 4.3 Enivornment Variables 
-Update your .env.local file with your AI API key before running otherwise the project wont work
-Create your own Google GEMINI API and update the .env.local file 
+### 2 attach the environment file
+touch .env.local
 
-```bash
-AI_API_KEY=your_api_key_here
-```
-## 4.4 Run Locally
+### 3 attach the keys folder with vertex-sa.json in it
+create a private key and past it in
 
-bash
-npm run dev
+# App
+NEXT_PUBLIC_APP_NAME="InnovAIte Marketing"
 
-Visit http://localhost:3000 in your browser.
+# n8n workflow base URL (example)
+N8N_BASE_URL="https://<your-n8n-domain>"
+N8N_WEBHOOK_URL="https://<your-n8n-domain>/webhook/<id>"
 
-## 5. Documentation
+# AI Provider Keys (examples - use what your project actually uses)
+GOOGLE_API_KEY="YOUR_KEY"
+IMAGEN_API_KEY="YOUR_KEY"
 
-SRS (Software Requirements Specification) - 
+# Optional: database (if used)
+SUPABASE_URL=""
+SUPABASE_ANON_KEY=""
 
-Design Flow Document - 
 
 ## 6. Project Structure
 
@@ -107,3 +86,6 @@ Creative_and_Marketing_Tech/
 ├── tailwind.config.ts        → Tailwind CSS configuration  
 └── tsconfig.json             → TypeScript configuration  
 
+
+### How to get the API key - Google AI studio
+### How to get the private key - Google studio -> Vertex AI -> generate private key
